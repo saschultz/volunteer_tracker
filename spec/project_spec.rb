@@ -9,7 +9,7 @@ describe Project do
   end
 
   describe '#id' do
-    it 'tells you the id of the project' do
+    it 'returns you the id of the project' do
       test_project = Project.new({:name => 'Save the Earth', :id => nil})
       test_project.save
       expect(test_project.id).to(be_an_instance_of(Fixnum))
@@ -37,6 +37,16 @@ describe Project do
       expect(Project.all()).to(eq([]))
     end
   end
+
+  describe '.find' do
+   it 'finds a project based off an id' do
+     test_project1 = Project.new({:name => 'Clean our Oceans', :id => nil})
+     test_project1.save
+     test_project2 = Project.new({:name => 'Save the Great Barrier Reef', :id => nil})
+     test_project2.save
+     expect(Project.find(test_project2.id)).to(eq(test_project2))
+   end
+ end
 
 
 end
