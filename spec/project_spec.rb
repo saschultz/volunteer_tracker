@@ -57,5 +57,16 @@ describe Project do
    end
  end
 
+ describe '#delete' do
+    it 'lets you delete a project from the database' do
+      project = Project.new({:name => 'Clean our Oceans', :id => nil})
+      project.save
+      project2 = Project.new({:name => 'Save the Great Barrier Reef', :id => nil})
+      project2.save
+      project.delete
+      expect(Project.all).to(eq([project2]))
+    end
+  end
+
 
 end
