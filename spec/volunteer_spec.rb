@@ -45,4 +45,14 @@ describe Volunteer do
       expect(Volunteer.all).to(eq([test_volunteer]))
     end
   end
+
+  describe '.find' do
+   it 'finds a volunteer based off an id' do
+      test_volunteer1 = Volunteer.new({:name => 'Wes Anderson', :project_id => 1, :id => nil})
+      test_volunteer1.save
+      test_volunteer2 = Volunteer.new({:name => 'Tim Burton', :project_id => 2, :id => nil})
+      test_volunteer2.save
+      expect(Volunteer.find(test_volunteer2.id)).to(eq(test_volunteer2))
+   end
+ end
 end
