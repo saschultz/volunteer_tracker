@@ -40,11 +40,20 @@ describe Project do
 
   describe '.find' do
    it 'finds a project based off an id' do
-     test_project1 = Project.new({:name => 'Clean our Oceans', :id => nil})
-     test_project1.save
-     test_project2 = Project.new({:name => 'Save the Great Barrier Reef', :id => nil})
-     test_project2.save
-     expect(Project.find(test_project2.id)).to(eq(test_project2))
+      test_project1 = Project.new({:name => 'Clean our Oceans', :id => nil})
+      test_project1.save
+      test_project2 = Project.new({:name => 'Save the Great Barrier Reef', :id => nil})
+      test_project2.save
+      expect(Project.find(test_project2.id)).to(eq(test_project2))
+   end
+ end
+
+ describe '#update' do
+   it 'will update the name of the project in the database' do
+      test_project = Project.new({:name => 'Clean our Ocean', :id => nil})
+      test_project.save
+      test_project.update({:name => "Clean our Oceans"})
+      expect(test_project.name).to(eq("Clean our Oceans"))
    end
  end
 
