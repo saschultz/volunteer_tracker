@@ -6,9 +6,9 @@
     <h3>Project Information</h3>
 
     <label>Volunteers</label><br>
-    <% if @volunteers.any? %>
+    <% if @project.add_volunteer.any? %>
       <ul>
-        <% @volunteers.each do |volunteer| %>
+        <% @project.add_volunteer.each do |volunteer| %>
           <li><%= volunteer.name %></li>
         <% end %>
       </ul>
@@ -31,6 +31,12 @@
   <div class="col-sm-6">
     <h3>Add Volunteers</h3>
 
+    <form action="/project/<%= @project.id %>/volunteer" method="post">
+      <input name="project_id" type="hidden" value="<%= @project.id %>">
+      <label>Enter Name</label>
+      <input type="text" name="volunteer_name">
+      <button type="submit">Add</button>
+    </form>
 
   </div>
 

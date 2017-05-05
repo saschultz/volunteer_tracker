@@ -46,7 +46,7 @@ class Project
     DB.exec("DELETE FROM volunteers WHERE project_id = #{self.id};")
   end
 
-  def volunteers
+  def add_volunteer
     project_volunteers = []
     results = DB.exec("SELECT * FROM volunteers WHERE project_id = #{self.id};")
     results.each do |result|
