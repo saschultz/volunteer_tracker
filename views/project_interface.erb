@@ -5,6 +5,17 @@
   <div class="col-sm-6">
     <h3>Project Information</h3>
 
+    <label>Volunteers</label><br>
+    <% if @volunteers.any? %>
+      <ul>
+        <% @volunteers.each do |volunteer| %>
+          <li><%= volunteer.name %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <em>there are no volunteers added yet</em>
+    <% end %>
+    <hr>
     <form action="/project/<%= @project.id %>/edit" method="post">
       <div class="form-group">
 
@@ -20,7 +31,6 @@
   <div class="col-sm-6">
     <h3>Add Volunteers</h3>
 
-      <em>there are no volunteers added yet</em>
 
   </div>
 
