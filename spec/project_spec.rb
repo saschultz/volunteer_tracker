@@ -68,5 +68,17 @@ describe Project do
     end
   end
 
+  describe '#volunteers' do
+    it 'will add volunteer to a project' do
+      project = Project.new({:name => 'Save the Great Barrier Reef', :id => nil})
+      project.save
+      volunteer1 = Volunteer.new({:name => 'Wes Anderson', :project_id => project.id, :id => nil})
+      volunteer1.save
+      volunteer2 = Volunteer.new({:name => 'Tim Burton', :project_id => project.id, :id => nil})
+      volunteer2.save
+      expect(project.volunteers).to eq([volunteer1, volunteer2])
+    end
+  end
+
 
 end
