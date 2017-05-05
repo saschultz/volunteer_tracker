@@ -48,3 +48,10 @@ patch '/project/:id/edit' do
   @volunteers =  DB.exec("SELECT name FROM volunteers WHERE project_id = #{params.fetch("id").to_i};")
   erb :project_interface
 end
+
+delete '/project/:id/edit' do
+  @project = Project.find(params.fetch("id").to_i)
+  @project.delete
+  @projects = Project.all
+  erb :index
+end
