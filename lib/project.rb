@@ -9,7 +9,7 @@ class Project
   def Project.all
     projects = []
     returned_projects = DB.exec("SELECT * FROM projects;")
-    returned_projects.each() do |project|
+    returned_projects.each do |project|
       name = project['name']
       id = project.fetch('id').to_i
       projects.push(Project.new({:name => name, :id => id}))
