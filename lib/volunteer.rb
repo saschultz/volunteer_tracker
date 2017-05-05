@@ -1,10 +1,10 @@
 class Volunteer
-  attr_accessor :name, :id, :project_id
+  attr_accessor :name, :project_id, :id
 
   def initialize(attributes)
     @name = attributes[:name]
-    @id = attributes[:id]
     @project_id = attributes[:project_id]
+    @id = attributes[:id]
   end
 
   def Volunteer.all
@@ -12,15 +12,20 @@ class Volunteer
     returned_volunteers = DB.exec("SELECT * FROM volunteers;")
     returned_volunteers.each do |volunteer|
       name = volunteer['name']
-      id = volunteer.fetch('id').to_i
       project_id = volunteer.fetch('project_id').to_i
+      id = volunteer.fetch('id').to_i
       volunteers.push(Volunteer.new({:name => name, :id => id, :project_id => project_id}))
     end
     volunteers
   end
 
+  def ==(another_volunteer)
+    self.name == another_volunteer.name && self.id == another_volunteer.id
+  end
+
+
   def save
-    result = DB.exec("INSERT INTO volunteers (name) VALUES ('#{@name}') RETURNING id;")
+    result = DB.exec("INSERT INTO volunteers (name, project_id) VALUES ('#{@name}', #{@project_id}) RETURNING id;")
     @id = result.first.fetch('id').to_i
   end
 end

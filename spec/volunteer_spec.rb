@@ -16,23 +16,31 @@ describe Volunteer do
 
   describe '#id' do
     it 'returns you the id of the volunteer' do
-      test_volunteer = Volunteer.new({:name => 'Wes Anderson', :id => nil})
+      test_volunteer = Volunteer.new({:name => 'Wes Anderson', :project_id => 1, :id => nil})
       test_volunteer.save
       expect(test_volunteer.id).to(be_an_instance_of(Fixnum))
     end
   end
 
   describe '#project_id' do
-    it 'returns you the id of the volunteer' do
+    it 'returns you the id of the project to that volunteer' do
       test_volunteer = Volunteer.new({:name => 'Wes Anderson', :id => nil, :project_id => 1})
       test_volunteer.save
       expect(test_volunteer.project_id).to(eq(1))
     end
   end
 
+  describe '#==' do
+    it 'is the same volunteer if they have the same name' do
+      test_volunteer1 = Volunteer.new({:name => 'Wes Anderson', :id => nil})
+      test_volunteer2 = Volunteer.new({:name => 'Wes Anderson', :id => nil})
+      expect(test_volunteer1).to(eq(test_volunteer2))
+    end
+  end
+
   describe '#save' do
-    it 'lets you save a volunteer to the database' do
-      test_volunteer = Volunteer.new({:name => 'Wes Anderson', :id => nil, :project_id => 1})
+    it 'lets you save a volunteer to the array of volunteers' do
+      test_volunteer = Volunteer.new({:name => 'Wes Anderson', :project_id => 1, :id => nil})
       test_volunteer.save
       expect(Volunteer.all).to(eq([test_volunteer]))
     end
