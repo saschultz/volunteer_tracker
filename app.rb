@@ -14,8 +14,6 @@ end
 
 post '/add_project' do
   name = params.fetch('name')
-  @project = Project.find(params.fetch("id").to_i)
-
   Project.new({:name => name}).save
   @projects = Project.all
   erb :index
@@ -50,8 +48,8 @@ patch '/project/:id/edit' do
 end
 
 delete '/project/:id/edit' do
-  @project = Project.find(params.fetch("id").to_i)
-  @project.delete
+  project = Project.find(params.fetch("id").to_i)
+  project.delete
   @projects = Project.all
   erb :index
 end
