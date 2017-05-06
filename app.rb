@@ -22,6 +22,12 @@ end
 get '/project/:id' do
   @project = Project.find(params.fetch("id").to_i)
   @volunteers =  DB.exec("SELECT name FROM volunteers WHERE project_id = #{params.fetch("id").to_i};")
+  # volunteer_name = params.fetch('volunteer_name')
+  # project_id = params.fetch('project_id').to_i
+  # id = nil
+  # @volunteer = Volunteer.new({:name => volunteer_name, :id => nil, :project_id => project_id}).save
+  #
+  # @volunteer = Volunteer.find(params.fetch('id').to_i)
   erb :project_interface
 end
 
@@ -31,8 +37,26 @@ post '/project/:id/volunteer' do
   id = nil
   @volunteer = Volunteer.new({:name => volunteer_name, :id => nil, :project_id => project_id}).save
   @project = Project.find(project_id)
+  @volunteers = Volunteer.all
   # @volunteers =  DB.exec("SELECT name FROM volunteers WHERE project_id = #{params.fetch("id").to_i};")
   erb :project_interface
+end
+
+get '/volunteer/:id' do
+  @volunteer = Volunteer.find(params.fetch('id').to_i)
+  erb :volunteer
+end
+
+patch '/volunteer/:id' do
+  @volunteer = Volunteer.find(params.fetch("id").to_i)
+  volunteer_name = params.fetch('volunteer_name')
+  if (volunteer_name.split('').any?)
+    @volunteer.update({:name => volunteer_name})
+  else
+    @volunteer.update({:name => "#{@volunteer.name}"})
+  end
+  @volunteers = DB.exec("SELECT name FROM volunteers where project_id = #{params.fetch('id').to_i};")
+  erb :volunteer
 end
 
 patch '/project/:id/edit' do
