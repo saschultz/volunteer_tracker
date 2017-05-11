@@ -9,7 +9,9 @@
     <button type="submit">Update</button>
   </div>
 </form>
-<form action="" method="post">
- <input type="hidden" name="_method" value="delete">
- <button type="submit">Delete Volunteer</button>
+<form action="/volunteer/<%= @volunteer.id %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit">Delete Volunteer</button>
 </form>
+
+<a href="/">Home</a><br>
